@@ -93,6 +93,18 @@ except Exception as e:
     print("Deletion failed:", e)
 ```
 
+### Search a File
+
+```python
+keyword = "sometext"
+
+try:
+    result: list = client.search_files(keyword)
+    print("Search successful:", result)
+except Exception as e:
+    print("Search failed:", e)
+```
+
 ## Contributing
 
 Contributions are welcome! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.

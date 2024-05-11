@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Fetch all history and tags
-        run: git fetch --prune --unshallow --tags
+        run: git fetch --prune --unshallow
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install setuptools wheel twine build setuptools_scm
+          pip install setuptools wheel twine build setuptools_scm versiontag
 
       - name: Build package
         run: |

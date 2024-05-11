@@ -16,4 +16,6 @@ setup(
         'rich',
     ],
     python_requires='>=3.6',
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
 )

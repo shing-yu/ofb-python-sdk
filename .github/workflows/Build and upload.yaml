@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install setuptools wheel twine build
+          pip install setuptools wheel twine build setuptools_scm
 
       - name: Build package
         run: |
@@ -31,6 +31,7 @@ jobs:
           path: dist/
 
       - name: Upload to TestPyPI
+        if: !startsWith(github.ref, 'refs/tags')  # Only upload to TestPyPI on non-tag pushes
         uses: pypa/gh-action-pypi-publish@unstable/v1
         with:
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}

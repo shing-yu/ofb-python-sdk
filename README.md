@@ -107,11 +107,11 @@ except Exception as e:
 
 ## Contributing
 
-Contributions are welcome! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
+Contributions are welcome! Please read the [CONTRIBUTING.md](https://github.com/shing-yu/ofb-python-sdk/blob/main/CONTRIBUTING.md) for guidelines on how to contribute to this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/shing-yu/ofb-python-sdk/blob/main/LICENSE) file for details.
 
 ## Support
 

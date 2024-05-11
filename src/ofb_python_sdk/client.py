@@ -60,16 +60,19 @@ class Client(object):
         self.token_invalid_time = time.time() + response.json()["expires_in"]
         return self.access_token
 
-    def upload_file(self, file: bytes, remote_file: str):
+    def upload_file(self, file: bytes, remote_file: str, auto_transfer: bool = False):
         """
         Upload a file to the OneDrive.\n
         Only support files that are less than 4MB, if you want to upload a big file,
         please use the upload_big_file method.
+        :param auto_transfer: Automatically transfer the file to upload_big_file if the file is too big.
         :param file: The file content.
         :param remote_file: The remote file path, relative to the root folder. Start with "/", for example: "/test.txt".
         :return: The original response.
         """
         if len(file) > 4000000:
+            if auto_transfer:
+                return self.upload_big_file(file, remote_file)
             raise FileTooBigError("The file is too big. Please use the upload_big_file method.")
         access_token = self.get_access_token()
         headers = {
@@ -243,6 +246,29 @@ class Client(object):
                                    headers=headers)
         if response.status_code >= 400:
             raise OperationFailedError(f"Failed to delete file: {response.status_code}. Response: {response.text}")
+        return response
+
+    def search_files(self, keyword: str):
+        """
+        Search files in the OneDrive.
+        :param keyword: The keyword to search.
+        :return: A list of files.
+        """
+        access_token = self.get_access_token()
+        headers = {
+            "Authorization": "Bearer " + access_token
+        }
+        url = f"https://graph.microsoft.com/v1.0/me/drive/root/search(q='{keyword}')"
+        result = []
+        while True:
+            response = requests.get(url, headers=headers)
+            if response.status_code >= 400:
+                raise OperationFailedError(f"Failed to search files: {response.status_code}. Response: {response.text}")
+            data = response.json()
+            result.extend(data["value"])
+            if "@odata.nextLink" not in data:
+                break
+            url = data["@odata.nextLink"]
         return response
 
 

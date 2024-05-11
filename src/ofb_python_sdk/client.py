@@ -234,7 +234,7 @@ class Client(object):
 
     def delete_file(self, remote_file: str):
         """
-        Delete a file from the OneDrive.
+        Move a file to the recycle bin in the OneDrive.
         :param remote_file: The remote file path, relative to the root folder. Start with "/", for example: "/test.txt".
         :return: The original response.
         """

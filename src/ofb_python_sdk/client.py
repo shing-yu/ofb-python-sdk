@@ -218,7 +218,7 @@ class Client(object):
 
     def get_file_id(self, remote_file: str):
         """
-        Get the file ID.
+        Get the file ID. Will be used in the future.
         :param remote_file: The remote file path, relative to the root folder. Start with "/", for example: "/test.txt".
         :return: The file ID.
         """
@@ -269,7 +269,7 @@ class Client(object):
             if "@odata.nextLink" not in data:
                 break
             url = data["@odata.nextLink"]
-        return response
+        return result
 
 
 class OperationFailedError(Exception):

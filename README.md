@@ -38,10 +38,13 @@ client = Client(
     client_secret="your_client_secret",
     refresh_token="your_refresh_token",
     redirect_uri="your_redirect_uri",
+    disable_progress=False,  # Set to True to disable progress bar, default is False
 )
 ```
 
 ### Upload a File
+
+Only files smaller than 4MB can be uploaded directly. For larger files, you need to use the `upload_big_file` method.
 
 ```python
 file_path = "/path/to/your/file"
@@ -50,6 +53,22 @@ remote_path = "/path/to/onedrive/destination/file.txt"
 
 try:
     response = client.upload_file(file_data, remote_path)
+    print("Upload successful:", response.status_code)
+except Exception as e:
+    print("Upload failed:", e)
+```
+
+### Upload a Big File
+
+Can upload any size of file.
+
+```python
+file_path = "/path/to/your/big/file"
+file_data = open(file_path, "rb").read()
+remote_path = "/path/to/onedrive/destination/big_file.txt"
+
+try:
+    response = client.upload_big_file(file_data, remote_path)
     print("Upload successful:", response.status_code)
 except Exception as e:
     print("Upload failed:", e)

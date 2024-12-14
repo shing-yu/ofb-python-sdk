@@ -99,3 +99,27 @@ try:
 except Exception as e:
     print("Search failed:", e)
 ```
+
+### Get a Temp Link of a File
+
+```python
+remote_path = "/path/to/onedrive/file.txt"
+
+try:
+    link = client.get_temp_link(remote_path)
+    print("Temporary link:", link)
+except Exception as e:
+    print("Failed to get temporary link:", e)
+```
+
+### Get the Children of a Folder
+
+```python
+folder_path = "/path/to/onedrive/folder"
+
+try:
+    children = client.get_children(folder_path)
+    print("Children:", children)
+except Exception as e:
+    print("Failed to get children:", e)
+```

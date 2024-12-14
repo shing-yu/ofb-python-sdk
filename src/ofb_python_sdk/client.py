@@ -290,11 +290,11 @@ class Client(object):
             url = data["@odata.nextLink"]
         return result
 
-    def get_children(self, remote_file: str, max_count: int = 200):
+    def get_children(self, remote_folder: str, max_count: int = 200):
         """
         Get the children of a folder.
         :param max_count: The maximum count of children to get. Default is 200.
-        :param remote_file: The remote file path, relative to the root folder. Start with "/", for example: "/test".
+        :param remote_folder: The remote file path, relative to the root folder. Start with "/", for example: "/test".
         :return: A list of files.
         """
         access_token = self.get_access_token()
@@ -306,7 +306,7 @@ class Client(object):
             "$expand": "thumbnails($select=medium)",
             "$select": "id,name,size,fileSystemInfo,content.downloadUrl,file,parentReference"
         }
-        response = requests.get("https://graph.microsoft.com/v1.0/me/drive/root:" + remote_file + ":/children",
+        response = requests.get("https://graph.microsoft.com/v1.0/me/drive/root:" + remote_folder + ":/children",
                                 headers=headers, params=params)
         if response.status_code >= 400:
             raise OperationFailedError(f"Failed to get children: {response.status_code}. Response: {response.text}")

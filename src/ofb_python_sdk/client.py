@@ -218,6 +218,23 @@ class Client(object):
             raise OperationFailedError(f"Failed to download file: {response.status_code}. Response: {response.text}")
         return response.content
 
+    def get_temp_link(self, remote_file: str):
+        """
+        Get a temporary link (valid for few minutes) to download a file from the OneDrive.
+        :param remote_file: The remote file path, relative to the root folder. Start with "/", for example: "/test.txt".
+        :return: A temporary link.
+        """
+        access_token = self.get_access_token()
+        headers = {
+            "Authorization": "Bearer " + access_token
+        }
+        response = requests.get("https://graph.microsoft.com/v1.0/me/drive/root:" + remote_file + ":/content",
+                                headers=headers, allow_redirects=False)
+        if response.status_code >= 400:
+            raise OperationFailedError(f"Failed to get temporary link: {response.status_code}. "
+                                       f"Response: {response.text}")
+        return response.headers["Location"]
+
     def get_file_id(self, remote_file: str):
         """
         Get the file ID. Will be used in the future.

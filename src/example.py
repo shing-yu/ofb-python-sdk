@@ -22,3 +22,11 @@ print(file.decode("utf-8"))
 
 # move a file to recycle bin
 app.delete_file("/test.txt")
+
+# get a temp link
+temp_link = app.get_temp_link("/testbig.txt")
+print(temp_link)
+
+# get children of a folder
+children = app.get_children("/test")
+print(children)

@@ -41,6 +41,8 @@ class Client(object):
         Get the access token.
         :return: The access token.
         """
+        if time.time() < self.token_invalid_time:
+            return self.access_token
         headers = {
             "Content-Type": "application/x-www-form-urlencoded"
         }
